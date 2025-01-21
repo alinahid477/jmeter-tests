@@ -6,7 +6,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="connectionString" elementType="Argument">
             <stringProp name="Argument.name">connectionString</stringProp>
-            <stringProp name="Argument.value">mongodb+srv://jmeter:jmeterpass@anahid1.df0bi.mongodb.net/sample_mflix?retryWrites=true&amp;w=majority&amp;appName=anahid1</stringProp>
+            <stringProp name="Argument.value">mongodb+srv://jmeter:jmeterpass@anahid1.df0bi.mongodb.net</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="databaseName" elementType="Argument">

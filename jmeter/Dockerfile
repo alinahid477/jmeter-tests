@@ -2,7 +2,6 @@
 # https://github.com/hhcordero/docker-jmeter-server/blob/master/Dockerfile
 FROM alpine:3.12
 
-MAINTAINER Just van den Broecke<just@justobjects.nl>
 
 ARG JMETER_VERSION="5.5"
 ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}

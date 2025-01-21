@@ -96,5 +96,5 @@ and performs 3 tests (ConnectToDB, CountDocuments in a Collection, GetAllDocumen
 
 - `cd java-app/mongotest`
 - edit [k8s/deployment.yaml](java-app/mongotest/k8s/deployment.yaml) and update the envrionment variables (MONGO_CONNECTION_URI, MONGO_DB_NAME, MONGO_COLLECTION_NAME)
-- `kubectl create -f k8s/deployment.yaml`. This will create namespace (called javaapp-test), deploy pod using deployment called mongotest_app and ClusterIP type service called mongotest_app (exposing port 80 maping to 8080 on the pod)
+- `kubectl create -f k8s/deployment.yaml`. This will create namespace (called javaapp-test), deploy pod using deployment called mongotest_app using image quay.io/rh-ee-anahid/mongotest:1.0.0 (see Dockerfile.prod in [java-app](java-app/mongotest/) project to see how this image is created) and ClusterIP type service called mongotest_app (exposing port 80 maping to 8080 on the pod)
 - users can port-forward or create route to expose the service to browse the url http://[service-address]/test/mongo

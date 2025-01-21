@@ -52,3 +52,7 @@ try {
 
 
 jmeter -n -t ww_mongo_test.jmx -l output.jtl -e -o output/
+
+
+oc adm policy add-scc-to-user privileged -z scc-admin -n jmeter-test
+kubectl exec -n jmeter-test jmeter-container-5cbf4ff6d8-d2nzs -- cat /opt/apache-jmeter-5.6.3/output/statistics.json > statstics.nogit.json

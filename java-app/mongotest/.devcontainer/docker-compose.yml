@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  mongotest:
+    # user: 1000:1000
+    container_name: mongotest
+    build:
+      context: .
+      dockerfile: ./Dockerfile.devcontainer
+    volumes:
+      - ../:/workspace:cached
+    environment:
+      MONGO_CONNECTION_URI: mongodb+srv://jmeter:jmeterpass@anahid1.df0bi.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=anahid1
+      MONGO_DB_NAME: sample_mflix
+      MONGO_COLLECTION_NAME: comments
+    command: sleep infinity
+    networks: 
+      mongotest_ntwk:
+        ipv4_address: 172.21.0.2
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    stdin_open: true
+    # user: dev
+networks:
+  mongotest_ntwk:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
+        

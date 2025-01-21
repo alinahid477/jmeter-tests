@@ -1,0 +1,3 @@
+*.log
+jmeter/output/*
+!jmeter/output/.gitkeep

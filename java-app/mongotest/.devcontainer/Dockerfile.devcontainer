@@ -1,0 +1,10 @@
+FROM maven:3.8.5-openjdk-18-slim
+
+RUN java --version
+
+RUN apt-get update && apt-get install git -y
+RUN useradd -m dev && echo "dev:dev" | chpasswd && adduser dev sudo
+# USER dev
+
+# ENV PATH="$PATH:/home/dev/bin"
+CMD [ "/bin/bash" ]

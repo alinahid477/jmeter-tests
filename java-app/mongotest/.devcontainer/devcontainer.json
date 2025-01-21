@@ -1,0 +1,20 @@
+{
+	"name": "mongotest",
+	"dockerComposeFile": ["./docker-compose.yml"],
+	"shutdownAction": "stopCompose",
+	"service": "mongotest",
+	// "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+	// "settings": {
+	// 	"java.jdt.ls.java.home": "/usr/lib/jvm/java-11-openjdk-amd64",
+	// },
+	// "forwardPorts": [8080],
+	"extensions": [
+			"Pivotal.vscode-boot-dev-pack",
+			"vscjava.vscode-java-pack",
+			"sohibe.java-generate-setters-getters",
+			"vmware.vscode-boot-dev-pack"
+		]
+	
+
+}

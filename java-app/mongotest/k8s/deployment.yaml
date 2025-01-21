@@ -1,9 +1,15 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: javaapp-test
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongotest_app
-  namespace: jmeter-test
+  namespace: javaapp-test
 spec:
   selector:
     matchLabels: 
@@ -24,17 +30,17 @@ spec:
         imagePullPolicy: Always
         env:
         - name: MONGO_CONNECTION_URI
-          value: mongodb+srv://jmeter:jmeterpass@anahid1.df0bi.mongodb.net
+          value: mongodb+srv://[dbuser]:[userpass]@[serverurl]
         - name: MONGO_DB_NAME
-          value: sample_mflix
+          value: [dbname]
         - name: MONGO_COLLECTION_NAME
-          value: comments
+          value: [collection name]
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mongotest_app
-  namespace: myapps1
+  namespace: javaapp-test
 spec:
   ports:
   - port: 80

@@ -51,7 +51,7 @@ try {
 ```
 
 
-jmeter -n -t ww_mongo_test.jmx -l output.jtl -e -o output/
+jmeter -n -t ww_mongo_test.nogit.jmx -l output.jtl -e -o output/
 
 
 oc adm policy add-scc-to-user privileged -z scc-admin -n jmeter-test

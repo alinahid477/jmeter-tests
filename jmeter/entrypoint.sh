@@ -34,6 +34,10 @@ jmeter ${EXTRA_ARGS} $@
 
 echo "END Running Jmeter on `date`"
 
+
+# Keep the container/pod alive for 1 hour. 
+# Essentially this is to utilize the time to kubectl exec into the pod and retrieve the test result
+# test results are stored in a /opt/apache-jmeter-${JMETER_VERSION}/output/statstics.json file.
 for ((i=1; i<=360; i++)); do
   # Sleep for 5 seconds
   sleep 10

@@ -1,0 +1,26 @@
+# First stage: complete build environment
+FROM maven:3-openjdk-17 AS builder
+
+# add pom.xml and source code
+ADD ./pom.xml pom.xml
+ADD ./src src/
+
+# package jar
+RUN mvn clean package
+
+FROM fedora:41
+
+RUN dnf update -y \
+	&& dnf upgrade -y \
+	&& dnf install -y java-17-openjdk.x86_64 \
+	&& dnf install -y --skip-unavailable \
+    bzip2 unzip ca-certificates p11-kit binutils fontconfig
+
+# copy jar from the first stage
+COPY --from=builder target/mongotest-0.0.1-SNAPSHOT.jar mongotest-0.0.1-SNAPSHOT.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "mongotest-0.0.1-SNAPSHOT.jar"]
+
+# ENTRYPOINT ["/bin/bash"]

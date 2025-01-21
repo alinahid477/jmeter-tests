@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongotest_app
+  namespace: jmeter-test
+spec:
+  selector:
+    matchLabels: 
+      app: mongotest_app
+  template:
+    metadata:
+      labels: 
+        app: mongotest_app
+    spec:
+      #serviceAccountName: custom-sa
+      # imagePullSecrets:
+      # - name: rh-ee-anahid-sarobot-pull-secret
+      containers:
+      - name: mongotest_app
+        image: quay.io/rh-ee-anahid/mongotest:1.0.0
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always
+        env:
+        - name: MONGO_CONNECTION_URI
+          value: mongodb+srv://jmeter:jmeterpass@anahid1.df0bi.mongodb.net
+        - name: MONGO_DB_NAME
+          value: sample_mflix
+        - name: MONGO_COLLECTION_NAME
+          value: comments
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongotest_app
+  namespace: myapps1
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector: 
+    app: mongotest_app
+  type: ClusterIP

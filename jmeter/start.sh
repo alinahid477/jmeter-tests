@@ -30,4 +30,4 @@ then
 fi
 
 printf "\n$name, $port\n"
-docker run -it --rm -v ${PWD}/ww_mongo_test.jmx:/opt/ww_mongo_test.jmx --name $containername $name
+docker run -it --rm -v ${PWD}/ww_mongo_test.jmx:/opt/ww_mongo_test.jmx -v ${PWD}/output/x:/opt/apache-jmeter-5.6.3/output --name $containername $name

@@ -7,7 +7,7 @@ ARG JMETER_VERSION="5.6.3"
 ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
 ENV JMETER_CUSTOM_PLUGINS_FOLDER /jars
 ENV	JMETER_BIN	${JMETER_HOME}/bin
-ENV	JMETER_DOWNLOAD_URL  https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
+ENV	JMETER_DOWNLOAD_URL  https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
 
 # Install extra packages
 # Set TimeZone, See: https://github.com/gliderlabs/docker-alpine/issues/136#issuecomment-612751142
@@ -32,7 +32,8 @@ ENV PATH $PATH:$JMETER_BIN
 # Entrypoint has same signature as "jmeter" command
 COPY entrypoint.sh /
 
-COPY jars/*.jar /opt/apache-jmeter-${JMETER_VERSION}/
+COPY jars/*.jar /opt/apache-jmeter-${JMETER_VERSION}/lib/
+RUN rm /opt/apache-jmeter-${JMETER_VERSION}/lib/mongo-java-driver-2.14.3.jar
 
 WORKDIR	${JMETER_HOME}
 RUN mkdir output/ && chmod +x /entrypoint.sh

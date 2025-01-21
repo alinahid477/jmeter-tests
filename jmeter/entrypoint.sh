@@ -6,12 +6,12 @@
 #
 
 # Install jmeter plugins available on /plugins volume
-if [ -d $JMETER_CUSTOM_PLUGINS_FOLDER ]
-then
-    for plugin in ${JMETER_CUSTOM_PLUGINS_FOLDER}/*.jar; do
-        cp $plugin ${JMETER_HOME}/lib/ext
-    done;
-fi
+# if [ -d $JMETER_CUSTOM_PLUGINS_FOLDER ]
+# then
+#     for plugin in ${JMETER_CUSTOM_PLUGINS_FOLDER}/*.jar; do
+#         cp $plugin ${JMETER_HOME}/lib/ext
+#     done;
+# fi
 
 # Execute JMeter command
 set -e
@@ -33,6 +33,16 @@ echo "jmeter ALL ARGS=${EXTRA_ARGS} $@"
 jmeter ${EXTRA_ARGS} $@
 
 echo "END Running Jmeter on `date`"
+
+for ((i=1; i<=360; i++)); do
+  # Sleep for 5 seconds
+  sleep 10
+  if [[ -f /tmp/break.txt ]]
+  then
+    break;
+  fi
+done
+
 
 #     -n \
 #    -t "/tests/${TEST_DIR}/${TEST_PLAN}.jmx" \

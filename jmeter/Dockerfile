@@ -1,9 +1,9 @@
 # inspired by https://github.com/hauptmedia/docker-jmeter  and
 # https://github.com/hhcordero/docker-jmeter-server/blob/master/Dockerfile
-FROM alpine:3.12
+FROM fedora:41
 
 
-ARG JMETER_VERSION="5.5"
+ARG JMETER_VERSION="5.6.3"
 ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
 ENV JMETER_CUSTOM_PLUGINS_FOLDER /jars
 ENV	JMETER_BIN	${JMETER_HOME}/bin
@@ -13,13 +13,10 @@ ENV	JMETER_DOWNLOAD_URL  https://archive.apache.org/dist/jmeter/binaries/apache-
 # Set TimeZone, See: https://github.com/gliderlabs/docker-alpine/issues/136#issuecomment-612751142
 ARG TZ="Europe/Amsterdam"
 ENV TZ ${TZ}
-RUN    apk update \
-	&& apk upgrade \
-	&& apk add ca-certificates \
-	&& update-ca-certificates \
-	&& apk add --update openjdk8-jre tzdata curl unzip bash \
-	&& apk add --no-cache nss \
-	&& rm -rf /var/cache/apk/* \
+RUN    dnf update -y \
+	&& dnf upgrade -y \
+	&& dnf install -y java-17-openjdk.x86_64 \
+	&& dnf install -y nss \
 	&& mkdir -p /tmp/dependencies  \
 	&& curl -L --silent ${JMETER_DOWNLOAD_URL} >  /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz  \
 	&& mkdir -p /opt  \
@@ -35,6 +32,11 @@ ENV PATH $PATH:$JMETER_BIN
 # Entrypoint has same signature as "jmeter" command
 COPY entrypoint.sh /
 
-WORKDIR	${JMETER_HOME}
+COPY jars/*.jar /opt/apache-jmeter-${JMETER_VERSION}/
 
-ENTRYPOINT ["/entrypoint.sh"]
+WORKDIR	${JMETER_HOME}
+RUN mkdir output/ && chmod +x /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh", "-n", "-t", "/opt/ww_mongo_test.jmx", "-l", "output.jtl", "-e", "-o", "output/"]
+
+# ENTRYPOINT ["/entrypoint.sh"]

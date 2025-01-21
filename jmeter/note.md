@@ -5,7 +5,7 @@
 ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
-	MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(new ConnectionString("mongodb+srv://jmeter:jmeterpass@anahid1.df0bi.mongodb.net:27017")).applyToConnectionPoolSettings(builder ->
+	MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(new ConnectionString("mongodb+srv://user:pass@mongatlas_sample.df0bi.mongodb.net:27017")).applyToConnectionPoolSettings(builder ->
         builder.maxWaitTime(10, SECONDS)
         .maxSize(200).serverApi(serverApi).build();
 
@@ -31,7 +31,7 @@ import org.bson.Document;
 import java.util.Arrays;
 
 try {
-	String connectionString = "mongodb+srv://jmeter:jmeterpass@anahid1.df0bi.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=anahid1";
+	String connectionString = "mongodb+srv://user:pass@mongoserver.df0bi.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=mongoserver";
 	ServerApi serverApi = ServerApi.builder().version(ServerApiVersion.V1).build();
 	MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(new ConnectionString(connectionString)).serverApi(serverApi).build();
 	MongoClient mongoClient = MongoClients.create(settings);
